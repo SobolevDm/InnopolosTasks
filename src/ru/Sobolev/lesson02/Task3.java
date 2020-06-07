@@ -1,7 +1,7 @@
 package ru.Sobolev.lesson02;
 
 public class Task3 {
-    // Программа по переводу секунду в часы
+    // Программа по переводу секунд в часы
     public static void main(String[] args) {
         double a; // Секунды
         double b; // Часы
