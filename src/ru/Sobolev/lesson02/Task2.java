@@ -7,6 +7,6 @@ public class Task2 {
         nalog = salary / 100 * nalog;
         hands = salary - nalog;
 
-        System.out.println("При зарплате 120000 ₽ на руки Вы получите " + hands + " ₽.");
+        System.out.println("При зарплате " + salary + " ₽ на руки Вы получите " + hands + " ₽.");
     }
 }
