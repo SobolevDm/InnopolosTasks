@@ -4,19 +4,14 @@ import java.util.Scanner;
 
 class myColor {
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
 }
 
 public class Task2 {
 
     public static void main(String[] args) {
+
         //Задаем случайное число
         double rnd = Math.random();
         rnd = rnd * 100;
@@ -51,11 +46,7 @@ public class Task2 {
                             System.out.println(myColor.ANSI_BLUE + "Холодно." + myColor.ANSI_RESET);
                             number = num;
                         }
-
-
                     }
-
-
                 }
             } else {
                 System.out.println("Введенное значение не удовлетворяет заданным условиям!");
@@ -66,7 +57,5 @@ public class Task2 {
         if (chekNumber == 0 & random != number) {
             System.out.println(myColor.ANSI_RED + "ВЫ ПРОИГРАЛИ!" + myColor.ANSI_RESET);
         }
-
-
     }
 }
