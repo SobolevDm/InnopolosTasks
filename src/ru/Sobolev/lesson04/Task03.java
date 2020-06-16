@@ -14,7 +14,7 @@ public class Task03 {
                 numberInt = word.nextInt();
                 if ((numberInt >= 1) | (numberInt <= 9)) {
                     for (int count = 1; count < 10; count++) {
-                        System.out.printf("%d * %d = %d \n", count, numberInt, count * numberInt);
+                        System.out.printf("%d * %d = %d \n", numberInt, count, count * numberInt);
                     }
                     break;
                 } else {
