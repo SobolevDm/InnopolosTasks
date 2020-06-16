@@ -2,7 +2,7 @@ package ru.Sobolev.lesson03;
 
 import java.util.Scanner;
 
-class myColor {
+class MyColor {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\u001B[34m";
@@ -36,14 +36,14 @@ public class Task2 {
                 } else {
                     // тут играем
                     if (random == num) {
-                        System.out.println(myColor.ANSI_RED + "ВЫ ВЫИГРАЛИ ИГРУ! ПОЗДРАВЛЯЕМ!" + myColor.ANSI_RESET);
+                        System.out.println(MyColor.ANSI_RED + "ВЫ ВЫИГРАЛИ ИГРУ! ПОЗДРАВЛЯЕМ!" + MyColor.ANSI_RESET);
                         break;
                     } else {
                         if (Math.abs(random - number) >= Math.abs(random - num)) {
-                            System.out.println(myColor.ANSI_RED + " Горячо." + myColor.ANSI_RESET);
+                            System.out.println(MyColor.ANSI_RED + " Горячо." + MyColor.ANSI_RESET);
                             number = num;
                         } else {
-                            System.out.println(myColor.ANSI_BLUE + "Холодно." + myColor.ANSI_RESET);
+                            System.out.println(MyColor.ANSI_BLUE + "Холодно." + MyColor.ANSI_RESET);
                             number = num;
                         }
                     }
@@ -55,7 +55,7 @@ public class Task2 {
             }
         }
         if (chekNumber == 0 & random != number) {
-            System.out.println(myColor.ANSI_RED + "ВЫ ПРОИГРАЛИ!" + myColor.ANSI_RESET);
+            System.out.println(MyColor.ANSI_RED + "ВЫ ПРОИГРАЛИ!" + MyColor.ANSI_RESET);
         }
     }
 }
