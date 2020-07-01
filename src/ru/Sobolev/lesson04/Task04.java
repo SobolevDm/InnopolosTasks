@@ -17,7 +17,7 @@ public class Task04 {
             Scanner word = new Scanner(System.in);
             if (word.hasNextInt()) {
                 progress = word.nextInt();
-                if ((progress == 1) | (progress == 2)) {
+                if ((progress == 1) || (progress == 2)) {
                     for (; ; ) {
                         System.out.println("Введите чило для которого необходимо вывести прогрессию.");
                         Scanner wordNumber = new Scanner(System.in);

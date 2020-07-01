@@ -29,7 +29,7 @@ public class Task2 {
             int num = 0;
             if (word.hasNextInt()) {
                 num = word.nextInt();
-                if (num < 0 | num > 100) {
+                if (num < 0 || num > 100) {
                     System.out.println("Введенное значение не удовлетворяет заданным условиям!");
                     System.out.print("Пожалуйста попробуйте еще раз. ");
                     chekNumber--;
@@ -54,7 +54,7 @@ public class Task2 {
                 chekNumber--;
             }
         }
-        if (chekNumber == 0 & random != number) {
+        if (chekNumber == 0 && random != number) {
             System.out.println(MyColor.ANSI_RED + "ВЫ ПРОИГРАЛИ!" + MyColor.ANSI_RESET);
         }
     }

@@ -3,9 +3,9 @@ package ru.Sobolev.lesson06;
 import java.util.Scanner;
 
 public class AZS {
-    private static Tanker tanker1;
-    private static Tanker tanker2;
-    private static Tanker tanker3;
+//    private static Tanker tanker1;
+//    private static Tanker tanker2;
+//    private static Tanker tanker3;
 
 //    private Tanker tanker1; // не совсем понял почему IDEA создала эту строку
 
@@ -39,6 +39,7 @@ public class AZS {
         System.out.println(tankDt.getVolume());
 
         //@TODO реализовать процесс продажи топлива с уменьшением его в резервуарах
+
 
     }
 
