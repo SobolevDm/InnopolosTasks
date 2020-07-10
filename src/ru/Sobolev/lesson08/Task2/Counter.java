@@ -12,7 +12,7 @@ public class Counter {
         boolean exit = false;
 
         for (; ; ) {
-            System.out.printf("Хотите создать Объект?\n1. Да\n2. Нет");
+            System.out.printf("Хотите создать Объект?\n1. Да\n2. Нет\n");
 
             Scanner numberAction = new Scanner(System.in);
             if (numberAction.hasNextInt()) {
