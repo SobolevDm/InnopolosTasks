@@ -8,7 +8,6 @@ public class Contract {
     static void Cont() {
         numberCont = "Р001-07/20";
         dateCont = "01.06.2020";
-//        System.out.println(getitemsCont());
         itemsCont = new String[4];
         itemsCont[0] = "Упаковка шурупов";
         itemsCont[1] = "Коробка саморезов";
@@ -17,10 +16,12 @@ public class Contract {
     }
 
     public static String getNumberCont() {
+
         return numberCont;
     }
 
     public static String getDateCont() {
+
         return dateCont;
     }
 

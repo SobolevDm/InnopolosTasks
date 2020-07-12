@@ -1,7 +1,5 @@
 package ru.Sobolev.lesson08.Task3;
 
-//import ru.Sobolev.lesson08.Task2.Obj;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -12,9 +10,6 @@ public class Act extends Contract {
         int answer = 0, counter = 0;
         boolean exit = false;
 
-//        StringJoiner act = new StringJoiner("");
-//        Date date = new Date();
-
         for (; ; ) {
             System.out.printf("\nХотите создать новый Акт?\n1. Да\n2. Нет\n");
 
@@ -24,7 +19,6 @@ public class Act extends Contract {
             } else {
                 System.out.println("Нужно ввести целое число 1 или 2!");
             }
-
 
             switch (answer) {
                 case (1):
@@ -47,11 +41,9 @@ public class Act extends Contract {
             if (answer < 1 || answer > 2) {
                 System.out.println("Нужно ввести 1 или 2");//проверить строку на актуалтность
             }
-//            System.out.println("\n");
             if (exit == true) {
                 break;
             }
         }
-
     }
 }
