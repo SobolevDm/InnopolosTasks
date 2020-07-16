@@ -1,7 +1,6 @@
 package ru.Sobolev.lesson09.Task01;
 
-public class Interfaces {
-    //Интерфейсы
+public interface Interfaces {
     public interface Fly {
         default void fly() {
             System.out.println(" летать ");
