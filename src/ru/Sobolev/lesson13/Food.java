@@ -1,4 +1,5 @@
 package ru.Sobolev.lesson13;
+//оставить
 
 public enum Food {
     APPLE("да"),     // яблоко
@@ -8,7 +9,7 @@ public enum Food {
 
     String foodBaby;
 
-    Food(String foodBaby) {
+    private Food(String foodBaby) {
         this.foodBaby = foodBaby;
     }
 }
