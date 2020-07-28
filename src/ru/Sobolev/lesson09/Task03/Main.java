@@ -1,6 +1,6 @@
 package ru.Sobolev.lesson09.Task03;
 
-public class Main extends Men {
+public class Main {
 
     public static void main(String[] args) {
         Elderly elderly = new Elderly();
@@ -13,36 +13,36 @@ public class Main extends Men {
         System.out.println(baby.swim());
     }
 
-    public static class Elderly extends Men {
-        @Override
+    public static class Elderly {
+        //            @Override
         public String runFast() {
             return "Пожилой человек хочет, но не может бегать.";
         }
 
-        @Override
+        //            @Override
         public String runSlow() {
             return "Пожилой человек ходит медленно.";
         }
 
-        @Override
+        //            @Override
         public String swim() {
             return "Пожилой человек умеет плавать.";
         }
     }
 
-    public static class Baby extends Men {
+    public static class Baby {
 
-        @Override
+        //        @Override
         public String runFast() {
             return "Ребенок не умеет бегать!";
         }
 
-        @Override
+        //        @Override
         public String runSlow() {
             return "Ребенок медленно ходит.";
         }
 
-        @Override
+        //        @Override
         public String swim() {
             return "Ребенок хочет, но не умеет плавать.";
         }
