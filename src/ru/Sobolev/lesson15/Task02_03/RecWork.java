@@ -20,6 +20,7 @@ public class RecWork {
         file3.createNewFile();
         File file4 = new File(dir3.getAbsolutePath() + "/readme.txt");
         file4.createNewFile();
+        System.out.println("Файлы созданы.");
     }
 
     public static void view(String s, String depth) {
@@ -34,25 +35,22 @@ public class RecWork {
         }
     }
 
-    public static void delFiles(String s) {
+    public static void delFiles(String s) throws IOException {
         File dir = new File(s);
         for (File path : dir.listFiles()) {
-            if (path.listFiles() != null) {
-                if (path.isDirectory()) {
-                    delFiles(path.getAbsolutePath());
-                }
-                path.delete();
+            if (path.isDirectory()) {
+                delFiles(path.getAbsolutePath());
             }
-            dir.delete();
+            path.delete();
         }
+        dir.delete();
     }
-
 
     public static void main(String[] args) throws IOException {
         String str = "/Users/sobolev/Documents/developer/TestApplication/src/ru/Sobolev/lesson15/Task02_03/Delete";
-//        CreatFile(str);
+        CreatFile(str);
         view(str, "");
-
-
+        delFiles(str);
+        System.out.println("Все файлы удалены!");
     }
 }
