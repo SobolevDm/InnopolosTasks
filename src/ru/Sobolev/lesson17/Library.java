@@ -2,6 +2,7 @@ package ru.Sobolev.lesson17;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,8 +11,6 @@ import static ru.Sobolev.lesson17.textColor.*;
 public class Library {
 
     static String path = "./src/ru/Sobolev/lesson17/lib.dat";
-//    static String path = "/Users/sobolev/Documents/developer/TestApplication/src/ru/Sobolev/lesson17/lib.dat";
-
 
     public static Book newBook() throws IOException {
         String scanS;
@@ -32,82 +31,66 @@ public class Library {
         return new Book(newNameBook, newNameAuthor, newYearBook);
     }
 
-    //Arrays
-    public static void writeBook(List<Book> b) {
-//        try (FileOutputStream outStr = new FileOutputStream(path, false)) {
-//            ObjectOutputStream obj = new ObjectOutputStream(outStr);
-//            obj.writeObject(b.toString());
-//            obj.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        //***********
-        try (FileWriter outStr = new FileWriter(path, false)) {
-            BufferedWriter obj = new BufferedWriter(outStr);
-            for (Book i : b) {
-                obj.write(i.toString() + "\r\n");
-            }
-            obj.close();
-        } catch (Exception e) {
+    public static void writeBook(List<Book> b) throws FileNotFoundException {
+
+        try {
+            FileOutputStream file = new FileOutputStream(path);
+            ObjectOutputStream output = new ObjectOutputStream(file);
+
+            output.writeObject(b);
+            output.close();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
-    public static List<Book> readBook() throws FileNotFoundException {
-        List<Book> bookHelp = new ArrayList<>();
+    public static List<Book> readBook() throws ClassNotFoundException {
+        List<Book> newB = new ArrayList<>();
 
-        Scanner file = new Scanner(new File(path));
-        while (file.hasNextLine()) {
+        try {
+            FileInputStream fileStream = new FileInputStream(path);
+            ObjectInputStream objStream = new ObjectInputStream(fileStream);
 
-            /**   StringTokenizer tok = new StringTokenizer(file.nextLine(), "\\, Автор\\: \\");
-             String a = tok.nextToken();
-             String b = tok.nextToken();
-             String c = tok.nextToken();
-             System.out.println("a=" + a);
-             System.out.println("b=" + b);
-             System.out.println("c=" + c);
-             */
+            newB.addAll((Collection<? extends Book>) objStream.readObject());
+            objStream.close();
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return bookHelp;
+        return newB;
     }
 
-    /**
-     * public static List<Book> libDel(List<Book> oldB) {
-     * //     public static int libDel(List<Book> bookHelp) {
-     * int i, delNumber = 0;
-     * boolean exitDel = false;
-     * List<Book> newB = new ArrayList<>();
-     * <p>
-     * //        String scanS;
-     * for (; ; ) {
-     * System.out.println("Введите номер книги для удаления:");
-     * Scanner scanName = new Scanner(System.in);
-     * if (scanName.hasNextInt()) {
-     * i = scanName.nextInt();
-     * if (i >= 1 && i <= oldB.size()) {
-     * delNumber = i - 1;
-     * exitDel = true;
-     * } else {
-     * System.out.printf(tc_RED + "Нужно ввести номер книги, подлежащей удалению." + tc_RESET);
-     * }
-     * } else {
-     * System.out.printf(tc_RED + "Нужно ввести номер книги, подлежащей удалению." + tc_RESET);
-     * }
-     * if (exitDel = true) {
-     * break;
-     * }
-     * }
-     * //перезпись файла
-     * oldB.remove(delNumber);
-     * <p>
-     * return oldB;
-     * }
-     */
-    public static void main(String[] args) throws IOException {
-        // путь к библиотеке
+
+    public static List<Book> libDel(List<Book> oldB) {
+        int i, delNumber = 0;
+        boolean exitDel = false;
+//        List<Book> newB = new ArrayList<>();
+        for (; ; ) {
+            System.out.println("Введите номер книги для удаления:");
+            Scanner scanName = new Scanner(System.in);
+            if (scanName.hasNextInt()) {
+                i = scanName.nextInt();
+                if (i >= 1 && i <= oldB.size()) {
+                    delNumber = i - 1;
+                    exitDel = true;
+                } else {
+                    System.out.printf(tc_RED + "Нужно ввести номер книги, подлежащей удалению." + tc_RESET);
+                }
+            } else {
+                System.out.printf(tc_RED + "Нужно ввести номер книги, подлежащей удалению." + tc_RESET);
+            }
+            if (exitDel == true) {
+                break;
+            }
+        }
+        //перезпись файла
+        oldB.remove(delNumber);
+        return oldB;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
         boolean exitPo = false;
         List<Book> books = new ArrayList<>();
         File libEx = new File(path);
@@ -115,14 +98,7 @@ public class Library {
         if (libEx.exists() != true) {
             System.out.printf(tc_RED + "Библиотека не найдена и будет создана при добавлении новой книги." + tc_RESET + "%n");
         } else {
-
-//@TODO реализовать чтение файла с записью в List
-
-            books.addAll(readBook());
-
-//@TODO конец реализации
-
-
+            books = readBook();
         }
 
         for (; ; ) {
@@ -155,10 +131,9 @@ public class Library {
                             }
                             System.out.println("");
                             break;
-                        case (3):
-                            //удаляем книгу из библиотеки
-//                            books = libDel(books);
-//                            writeBook(books);
+                        case (3):   //удаляем книгу из библиотеки
+                            books = libDel(books);
+                            writeBook(books);
                             //@TODO Перебираем все элементы book и перезаписываем файл
 
                             break;
@@ -176,8 +151,5 @@ public class Library {
                 System.out.println("Введите числа от 1 до 4 согласно пунктам меню.");
             }
         }//for ()
-    }
-
-    private static class books {
     }
 }
