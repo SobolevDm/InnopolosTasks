@@ -12,18 +12,13 @@ public class CodeFile {
         strW.append("Посмотрим как ляжет кирилица в новый файл с иной кодировкой.\n");
         strW.close();
 
-        try {
-            File fRead = new File("first.txt");
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("first.txt"), "UTF-8");
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("second.txt"), "cp1251");
 
-            InputStreamReader inStr = new InputStreamReader(new FileInputStream("first.txt"), "UTF-8");
-            BufferedReader reader = new BufferedReader(inStr);
-
-            String bufer = reader.readLine();
-            System.out.println(bufer);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (isr.ready()) {
+            osw.write(isr.read());
         }
-
+        isr.close();
+        osw.close();
     }
 }
