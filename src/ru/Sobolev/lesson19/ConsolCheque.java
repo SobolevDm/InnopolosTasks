@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class ConsolCheque implements Serializable {
 
-    private String name;
-    private double quantity, price, cost;
+    private String name, quantity;
+    private double price, cost;
 
-    public ConsolCheque(String name, double quantity, double price, double cost) {
+    public ConsolCheque(String name, String quantity, double price, double cost) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
@@ -32,11 +32,11 @@ public class ConsolCheque implements Serializable {
         this.name = name;
     }
 
-    public double getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
