@@ -5,22 +5,22 @@ import java.io.Serializable;
 public class ConsolCheque implements Serializable {
 
     private String name;
-    private int price, count, summ; //Наименование        Цена   Кол-во    Стоимость
+    private double quantity, price, cost;
 
-    public ConsolCheque(String name, int price, int count, int summ) {
+    public ConsolCheque(String name, double quantity, double price, double cost) {
         this.name = name;
+        this.quantity = quantity;
         this.price = price;
-        this.count = count;
-        this.summ = summ;
+        this.cost = cost;
     }
 
     @Override
     public String toString() {
         return "ConsolCheque{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", count=" + count +
-                ", summ=" + summ +
+                "Наименование='" + name + '\'' +
+                ", Количество=" + quantity +
+                ", Цена=" + price +
+                ", Стоимость=" + cost +
                 '}';
     }
 
@@ -32,27 +32,27 @@ public class ConsolCheque implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getCount() {
-        return count;
+    public double getCost() {
+        return cost;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getSumm() {
-        return summ;
-    }
-
-    public void setSumm(int summ) {
-        this.summ = summ;
+    public void setCount(double cost) {
+        this.cost = cost;
     }
 }
