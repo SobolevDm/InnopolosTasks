@@ -1,5 +1,7 @@
 package ru.Sobolev.lesson08.Task1;
 
+import ru.Sobolev.old.lesson08.Task1.Actions;
+
 import java.util.Scanner;
 
 public class Calculator {

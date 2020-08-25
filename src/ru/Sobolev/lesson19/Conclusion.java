@@ -38,6 +38,8 @@ public class Conclusion {
             indent1 = 18 - i.getName().length();
             indent2 = 6 - i.getQuantity().length();
             indent3 = 7 - String.format("%.2f", i.getPrice()).length();
+//            indent3 = 7 - String.format("%5s", i.getPrice()).length(); - строка из 5 символов
+            //  StringBuilder - перенос длинного названия, посмотри!!!! Есть чек по переносу строки
             indent4 = 12 - String.format("%.2f", i.getCost()).length();
 
             System.out.printf(i.getName());
