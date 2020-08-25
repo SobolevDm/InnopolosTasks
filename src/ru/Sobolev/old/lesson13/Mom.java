@@ -1,4 +1,4 @@
-package ru.Sobolev.lesson13;
+package ru.Sobolev.old.lesson13;
 
 public class Mom {
 

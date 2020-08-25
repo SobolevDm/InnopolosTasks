@@ -1,4 +1,4 @@
-package ru.Sobolev.lesson14;
+package ru.Sobolev.old.lesson14;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -28,7 +28,7 @@ public class Works {
             //@TODO Организовать вывод часового пояса
             System.out.printf("Выберите желаемый напиток. Аппарат сдачи не выдает.\n");
             System.out.printf("На Вашем счете должно быть достаточно средств. Сейчас на Вашем счете: " + score + "₽.\n");
-            for (ru.Sobolev.lesson14.Drinks s : ru.Sobolev.lesson14.Drinks.values()) {
+            for (ru.Sobolev.old.lesson14.Drinks s : ru.Sobolev.old.lesson14.Drinks.values()) {
                 System.out.printf("%d. %s %d₽\n", s.ordinal() + 1, s.nameDrink, s.priceDrink);
             }
             System.out.println("5. Для пополнения счета нажмите 0.");
@@ -54,7 +54,7 @@ public class Works {
                             System.err.println(SDF.getSdf(str));
                         }
                     } else {
-                        for (ru.Sobolev.lesson14.Drinks s : Drinks.values()) {
+                        for (ru.Sobolev.old.lesson14.Drinks s : Drinks.values()) {
                             if (s.ordinal() == wordInt - 1) {
                                 if (s.priceDrink <= score) {
                                     score -= s.priceDrink;
