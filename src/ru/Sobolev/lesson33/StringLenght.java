@@ -33,14 +33,14 @@ public class StringLenght {
                 }
             }
         }
-        if (charsMax == null) {
-            System.out.println("Символ '" + maximum + "' встречается " + chars.get(maximum) + " раз(а).");
-        } else {
-            System.out.printf("Символы:");
-            for (Character j : charsMax) {
-                System.out.printf(" '" + j + "'");
-            }
-            System.out.println(", встречается " + chars.get(maximum) + " раз(а).");
+//        if (charsMax == null) {
+//            System.out.println("Символ '" + maximum + "' встречается " + chars.get(maximum) + " раз(а).");
+//        } else {
+        System.out.printf("Символ(ы):");
+        for (Character j : charsMax) {
+            System.out.printf(" '" + j + "'");
         }
+        System.out.println(", встречаются " + chars.get(maximum) + " раз(а).");
+//        }
     }
 }

@@ -1,6 +1,8 @@
 package ru.Sobolev.lesson25.Task1;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 import static ru.Sobolev.lesson25.textColor.*;
 
@@ -37,7 +39,12 @@ public class BasketMarket {
                         }
                         case 3: { // изменить кол-во
                             System.out.println("Изменено кол-во");
-                            // изменяет на 1 первую позицию в корзине, если значение кол-ва < 0 тогда удаляет позицию
+                            // изменяет на 1 первую позицию в корзине, если значение кол-ва <= 0 тогда удаляет позицию
+                            // по умолчанию считаем что изменяем кол-во на 1 первого товара в корзине
+                            for (Map.Entry<String, Double> i : basket.entrySet()) {
+                                updateProductQuantity(i.getKey(), -1);
+                                break;
+                            }
                             getProducts();
                             break;
                         }
@@ -64,22 +71,22 @@ public class BasketMarket {
         }//for (;;)
     }//psvm
 
-    public static void addBasket() {
+    static void addBasket() {
         //Считаем что при заполнении корзины пользователь пополняет её определенными товарами на пределенное кол-во
         basket.clear();
-        basket.put("Морквь", 3.450);
-        basket.put("Молоко", (double) 5);
-        basket.put("Сахар", (double) 2);
-        basket.put("Картошка", 5.120);
-        basket.put("Корм для кошек Wiskas", (double) 4);
-        basket.put("Шампиньоны", 1.150);
-        basket.put("Перец", 0.270);
-        basket.put("Чеснок", 0.210);
-        basket.put("Хлеб чёрный", (double) 1);
-        basket.put("Курица", 1.320);
+        basket.put("Морквь\t\t", 3.450);
+        basket.put("Молоко\t\t", (double) 5);
+        basket.put("Сахар\t\t", (double) 2);
+        basket.put("Картошка\t", 5.120);
+        basket.put("Корм д.к. Wiskas", (double) 4);
+        basket.put("Шампиньоны\t", 1.150);
+        basket.put("Перец\t\t", 0.270);
+        basket.put("Чеснок\t\t", 0.210);
+        basket.put("Хлеб чёрный\t", (double) 1);
+        basket.put("Курица\t\t", 1.320);
     }
 
-    public static void menuAction() {
+    static void menuAction() {
         System.out.println("Выберите действие:");
         System.out.println("1. Добавить продукты в корзину");
         System.out.println("2. Удалить выбранный продукт из корзины");
@@ -88,13 +95,30 @@ public class BasketMarket {
         System.out.println("5. Выход из программы");
     }
 
-    public static void getProducts() {
-        List listProd = new ArrayList(basket.keySet());
+    static void getProducts() {
         System.out.println("В корзине находятся продукты:" + tc_BLUE);
-        for (Object i : listProd) {
-            System.out.println(i);
+
+        for (String i : basket.keySet()) {
+            System.out.printf(i + "\t" + getQuantity(i) + "\n");
         }
         System.out.println(tc_RESET);
     }
 
+    static double getQuantity(String str) {
+        double quantity = basket.get(str);
+        return quantity;
+    }
+
+    static void updateProductQuantity(String product, double quantity) {
+
+        for (Map.Entry entry : basket.entrySet()) {
+            double dob = (double) entry.getValue() + quantity;
+            if (dob <= 0) {
+                basket.remove(product);
+            } else {
+                entry.setValue(dob);
+            }
+            break;
+        }
+    }
 }
