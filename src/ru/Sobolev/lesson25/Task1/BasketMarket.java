@@ -1,8 +1,8 @@
 package ru.Sobolev.lesson25.Task1;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+
+import static ru.Sobolev.lesson25.textColor.*;
 
 public class BasketMarket {
 
@@ -10,7 +10,7 @@ public class BasketMarket {
 
     public static void main(String[] args) {
         boolean exitPo = false;
-        System.out.println("Ваша корзина была пуста, мы её заполнили по умолчанию.");
+        System.out.println(tc_RED + "Ваша корзина была пуста, мы её заполнили по умолчанию." + tc_RESET);
         for (; ; ) {
             menuAction();
             Scanner scan = new Scanner(System.in);
@@ -21,28 +21,33 @@ public class BasketMarket {
                         case 1: { // добавить товар
                             System.out.println("Товар добавлен");
                             addBasket();
-                            //вывод корзины
+                            getProducts();
                             break;
                         }
                         case 2: { // удалить товар
+                            //поскольку по умолчанию удаляем первую позицию делаем цикл и после удаления выходим из него
+                            //при полной реализации передавали бы String (ключ конкретного товара) для удаления
+                            for (String i : basket.keySet()) {
+                                basket.remove(i);
+                                break;
+                            }
                             System.out.println("Товар удален");
-                            // удаляем 1-ю позицию из корзины
-                            //вывод содержимого корзины
+                            getProducts();
                             break;
                         }
                         case 3: { // изменить кол-во
                             System.out.println("Изменено кол-во");
                             // изменяет на 1 первую позицию в корзине, если значение кол-ва < 0 тогда удаляет позицию
-//                вывод содеоржимого корзины
+                            getProducts();
                             break;
                         }
                         case 4: { // очистить корзину
                             basket.clear();
-                            System.out.println("Ваша корзина пуста!");
+                            System.out.println(tc_RED + "Ваша корзина пуста!" + tc_RESET);
                             break;
                         }
-                        case 5: { // очистить корзину
-                            System.out.println("Выход из ПО");
+                        case 5: { // выход из ПО
+                            System.out.println(tc_RED + "Выход из ПО" + tc_RESET);
                             exitPo = true;
                             break;
                         }
@@ -54,7 +59,7 @@ public class BasketMarket {
                     System.out.println("Выберите пункт меню!");
                 }
             } else {
-                System.out.println("Нужно выбрать пункт меню - введите цыфру от 1 до 5.");
+                System.out.println(tc_RED + "Нужно выбрать пункт меню - введите цыфру от 1 до 5." + tc_RESET);
             }
         }//for (;;)
     }//psvm
@@ -81,6 +86,15 @@ public class BasketMarket {
         System.out.println("3. Изменить кол-во продуктов в корзине");
         System.out.println("4. Очистить корзину");
         System.out.println("5. Выход из программы");
+    }
+
+    public static void getProducts() {
+        List listProd = new ArrayList(basket.keySet());
+        System.out.println("В корзине находятся продукты:" + tc_BLUE);
+        for (Object i : listProd) {
+            System.out.println(i);
+        }
+        System.out.println(tc_RESET);
     }
 
 }
