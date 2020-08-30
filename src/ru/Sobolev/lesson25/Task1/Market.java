@@ -4,12 +4,12 @@ import java.util.*;
 
 import static ru.Sobolev.lesson25.textColor.*;
 
-public class Market {
+public class Market implements Basket {
 
     static Map<String, Integer> basket = new HashMap();
     static List<String> prodList = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         boolean exitPo = false;
         String helpProd;
         int count, countHelp;
@@ -149,30 +149,36 @@ public class Market {
 
     }//psvm
 
-    static void addProduct(String product, int quantity) {
+    @Override
+    public void addProduct(String product, int quantity) {
         basket.put(product, quantity);
     }
 
-    static void removeProduct(String product) {
+    @Override
+    public void removeProduct(String product) {
         basket.remove(product);
     }
 
-    static void updateProductQuantity(String product, int quantity) {
+    @Override
+    public void updateProductQuantity(String product, int quantity) {
         basket.replace(product, quantity);
     }
 
-    static void clear() {
+    @Override
+    public void clear() {
         basket.clear();
     }
 
-    static List<String> getProducts() {
+    @Override
+    public List<String> getProducts() {
         prodList.clear();
         prodList.addAll(basket.keySet());
 //        System.out.println(prodList);
         return prodList;
     }
 
-    static int getProductQuantity(String product) {
+    @Override
+    public int getProductQuantity(String product) {
         int quan = 0;
         for (Map.Entry<String, Integer> entry : basket.entrySet()) {
             if (entry.getKey().equals(product)) {
@@ -287,7 +293,7 @@ public class Market {
         System.out.println("5. Выход из программы");
     }
 
-    static void printBasket() {
+    void printBasket() {
         int count = 1;
         for (String list : getProducts()) {
             System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, getProductQuantity(list));
