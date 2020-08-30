@@ -8,146 +8,16 @@ public class Market implements Basket {
 
     static Map<String, Integer> basket = new HashMap();
     static List<String> prodList = new ArrayList<>();
+    String errorString = tc_RED + "Вы ввели неверные данные." + tc_RESET;
 
-    public void main(String[] args) {
-        boolean exitPo = false;
-        String helpProd;
-        int count, countHelp;
-
-        for (; ; ) {
-            menuAction();
-            Scanner scan = new Scanner(System.in);
-            if (scan.hasNextInt()) {
-                int helpNum = scan.nextInt();
-                if (helpNum >= 1 && helpNum <= 5) {
-                    switch (helpNum) {
-                        case 1: { //
-                            helpProd = newProduct();
-                            addProduct(helpProd, newQuantity(helpProd));
-                            System.out.println("Товар добавлен. В корзине находятся продукты:");
-                            printBasket();
-//                            count = 1;
-//                            for (String list : getProducts()) {
-//                                System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, getProductQuantity(list));
-//                                count++;
-//                            }
-                            break;
-                        }
-                        case 2: { // удалить товар
-                            System.out.printf(tc_RED + "Выберите товар, который хотите удалить из корзины.\n" + tc_RESET);
-//                            int countHelp;
-//                            count = 1;
-//                            for (String list : getProducts()) {
-//                                System.out.printf("%d. %s\n", count, list);
-//                                count++;
-//                            }
-                            printBasket();
-                            Scanner delProd = new Scanner(System.in);
-                            if (delProd.hasNextInt()) {
-                                countHelp = delProd.nextInt();
-                                if (countHelp > 0 && countHelp <= getProducts().size()) {
-                                    count = 1;
-                                    for (String list : getProducts()) {
-                                        if (count == countHelp) {
-                                            removeProduct(list);
-                                        }
-                                        count++;
-                                    }
-                                } else {
-                                    System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                                }
-                            } else {
-                                System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                            }
-                            System.out.println("Товар удален. В корзине содержится следующий товар:");
-                            printBasket();
-//                            //проверка
-//                            count = 1;
-//                            for (String list : getProducts()) {
-//                                System.out.printf(tc_BLUE + "%d. %s\n" + tc_RESET, count, list);
-//                                count++;
-//                            }
-//                            //конец проверки
-
-                            break;
-                        }
-                        case 3: { // изменить кол-во
-                            System.out.println("Выберите продукт у которого хотите изменить количество:");
-                            printBasket();
-//                            count = 1;
-//                            for (String list : getProducts()) {
-//                                System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, getProductQuantity(list));
-//                                count++;
-//                            }
-
-                            Scanner delProd = new Scanner(System.in);
-                            if (delProd.hasNextInt()) {
-                                countHelp = delProd.nextInt();
-                                if (countHelp > 0 && countHelp <= getProducts().size()) {
-                                    count = 1;
-                                    for (String list : getProducts()) {
-                                        if (count == countHelp) {
-                                            System.out.printf("У данного товара количество: %d\n", getProductQuantity(list));
-                                            System.out.println("Введите новое количество товара:");
-                                            Scanner newQuanScan = new Scanner(System.in);
-                                            if (newQuanScan.hasNextInt()) {
-                                                int newNumber = newQuanScan.nextInt();
-                                                if (newNumber > 0) {
-                                                    updateProductQuantity(list, newNumber);
-                                                } else {
-                                                    System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                                                }
-                                            } else {
-                                                System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                                            }
-                                        }
-                                        count++;
-                                    }
-                                } else {
-                                    System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                                }
-                            } else {
-                                System.out.println(tc_RED + "Вы ввели неверные данные." + tc_RESET);
-                            }
-                            System.out.println("Изменено кол-во");
-                            printBasket();
-//                            count = 1;
-//                            for (String list : getProducts()) {
-//                                System.out.printf(tc_BLUE + "%d. %s\n" + tc_RESET, count, list);
-//                                count++;
-//                            }
-                            // изменяет на 1 первую позицию в корзине, если значение кол-ва <= 0 тогда удаляет позицию
-                            // по умолчанию считаем что изменяем кол-во на 1 первого товара в корзине
-//                            for (Map.Entry<String, Double> i : basket.entrySet()) {
-//                                updateProductQuantity(i.getKey(), -1);
-//                                break;
-//                            }
-                            break;
-                        }
-                        case 4: { // очистить корзину
-                            clear();
-                            System.out.println(tc_RED + "Ваша корзина пуста!" + tc_RESET);
-                            break;
-                        }
-                        case 5: { // выход из ПО
-                            System.out.println(tc_RED + "До свидания!" + tc_RESET);
-                            exitPo = true;
-                            break;
-                        }
-                    }//switch
-                    if (exitPo == true) {
-                        break;
-                    }
-                } else {
-                    System.out.println("Выберите пункт меню!");
-                }
-            } else {
-                System.out.println(tc_RED + "Нужно выбрать пункт меню - введите цыфру от 1 до 5." + tc_RESET);
-            }
-        }//for (;;)
-
-
-    }//psvm
+    static void menuAction() {
+        System.out.println("Выберите действие:");
+        System.out.println("1. Добавить продукты в корзину");
+        System.out.println("2. Удалить выбранный продукт из корзины");
+        System.out.println("3. Изменить кол-во продуктов в корзине");
+        System.out.println("4. Очистить корзину");
+        System.out.println("5. Выход из программы");
+    }
 
     @Override
     public void addProduct(String product, int quantity) {
@@ -173,7 +43,6 @@ public class Market implements Basket {
     public List<String> getProducts() {
         prodList.clear();
         prodList.addAll(basket.keySet());
-//        System.out.println(prodList);
         return prodList;
     }
 
@@ -284,14 +153,108 @@ public class Market implements Basket {
         return newQuan;
     }
 
-    static void menuAction() {
-        System.out.println("Выберите действие:");
-        System.out.println("1. Добавить продукты в корзину"); // addProduct
-        System.out.println("2. Удалить выбранный продукт из корзины"); //removeProduct
-        System.out.println("3. Изменить кол-во продуктов в корзине");// updateProductQuantity
-        System.out.println("4. Очистить корзину"); // clear
-        System.out.println("5. Выход из программы");
-    }
+    public void main(String[] args) {
+        boolean exitPo = false;
+        String helpProd;
+        int count, countHelp;
+
+        for (; ; ) {
+            menuAction();
+            Scanner scan = new Scanner(System.in);
+            if (scan.hasNextInt()) {
+                int helpNum = scan.nextInt();
+                if (helpNum >= 1 && helpNum <= 5) {
+                    switch (helpNum) {
+                        case 1: { //
+                            helpProd = newProduct();
+                            addProduct(helpProd, newQuantity(helpProd));
+                            System.out.println("Товар добавлен. В корзине находятся продукты:");
+                            printBasket();
+                            break;
+                        }
+                        case 2: { // удалить товар
+                            System.out.printf(tc_RED + "Выберите товар, который хотите удалить из корзины.\n" + tc_RESET);
+                            printBasket();
+                            Scanner delProd = new Scanner(System.in);
+                            if (delProd.hasNextInt()) {
+                                countHelp = delProd.nextInt();
+                                if (countHelp > 0 && countHelp <= getProducts().size()) {
+                                    count = 1;
+                                    for (String list : getProducts()) {
+                                        if (count == countHelp) {
+                                            removeProduct(list);
+                                        }
+                                        count++;
+                                    }
+                                } else {
+                                    System.out.println(errorString);
+                                }
+                            } else {
+                                System.out.println(errorString);
+                            }
+                            System.out.println("Товар удален. В корзине содержится следующий товар:");
+                            printBasket();
+                            break;
+                        }
+                        case 3: { // изменить кол-во
+                            System.out.println("Выберите продукт у которого хотите изменить количество:");
+                            printBasket();
+
+                            Scanner delProd = new Scanner(System.in);
+                            if (delProd.hasNextInt()) {
+                                countHelp = delProd.nextInt();
+                                if (countHelp > 0 && countHelp <= getProducts().size()) {
+                                    count = 1;
+                                    for (String list : getProducts()) {
+                                        if (count == countHelp) {
+                                            System.out.printf("У данного товара количество: %d\n", getProductQuantity(list));
+                                            System.out.println("Введите новое количество товара:");
+                                            Scanner newQuanScan = new Scanner(System.in);
+                                            if (newQuanScan.hasNextInt()) {
+                                                int newNumber = newQuanScan.nextInt();
+                                                if (newNumber > 0) {
+                                                    updateProductQuantity(list, newNumber);
+                                                } else {
+                                                    System.out.println(errorString);
+                                                }
+                                            } else {
+                                                System.out.println(errorString);
+                                            }
+                                        }
+                                        count++;
+                                    }
+                                } else {
+                                    System.out.println(errorString);
+                                }
+                            } else {
+                                System.out.println(errorString);
+                            }
+                            System.out.println("Изменено кол-во");
+                            printBasket();
+                            break;
+                        }
+                        case 4: { // очистить корзину
+                            clear();
+                            System.out.println(tc_RED + "Ваша корзина пуста!" + tc_RESET);
+                            break;
+                        }
+                        case 5: { // выход из ПО
+                            System.out.println(tc_RED + "До свидания!" + tc_RESET);
+                            exitPo = true;
+                            break;
+                        }
+                    }//switch
+                    if (exitPo == true) {
+                        break;
+                    }
+                } else {
+                    System.out.println("Выберите пункт меню!");
+                }
+            } else {
+                System.out.println(tc_RED + "Нужно выбрать пункт меню - введите цыфру от 1 до 5." + tc_RESET);
+            }
+        }//for (;;)
+    }//psvm
 
     void printBasket() {
         int count = 1;
