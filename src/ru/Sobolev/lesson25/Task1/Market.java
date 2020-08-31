@@ -6,9 +6,9 @@ import static ru.Sobolev.lesson25.textColor.*;
 
 public class Market implements Basket {
 
-    static Map<String, Integer> basket = new HashMap();
-    static List<String> prodList = new ArrayList<>();
-    String errorString = tc_RED + "Вы ввели неверные данные." + tc_RESET;
+    public static Market market = new Market();
+    public Map<String, Integer> basket = new HashMap();
+    public List<String> prodList = new ArrayList<>();
 
     static void menuAction() {
         System.out.println("Выберите действие:");
@@ -57,8 +57,8 @@ public class Market implements Basket {
         return quan;
     }
 
-    static String newProduct() {
-        java.lang.String newProd = null, errorUser = "Нужно выбрать пункт меню";
+    public static String newProduct() {
+        String newProd = null, errorUser = "Нужно выбрать пункт меню";
         int scan;
 
         Scanner scanMenu = new Scanner(System.in);
@@ -153,10 +153,11 @@ public class Market implements Basket {
         return newQuan;
     }
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         boolean exitPo = false;
-        String helpProd;
+        String helpProd, errorString = tc_RED + "Вы ввели неверные данные." + tc_RESET;
         int count, countHelp;
+//        Market market = new Market();
 
         for (; ; ) {
             menuAction();
@@ -167,22 +168,22 @@ public class Market implements Basket {
                     switch (helpNum) {
                         case 1: { //
                             helpProd = newProduct();
-                            addProduct(helpProd, newQuantity(helpProd));
+                            market.addProduct(helpProd, newQuantity(helpProd));
                             System.out.println("Товар добавлен. В корзине находятся продукты:");
-                            printBasket();
+                            market.printBasket();
                             break;
                         }
                         case 2: { // удалить товар
                             System.out.printf(tc_RED + "Выберите товар, который хотите удалить из корзины.\n" + tc_RESET);
-                            printBasket();
+                            market.printBasket();
                             Scanner delProd = new Scanner(System.in);
                             if (delProd.hasNextInt()) {
                                 countHelp = delProd.nextInt();
-                                if (countHelp > 0 && countHelp <= getProducts().size()) {
+                                if (countHelp > 0 && countHelp <= market.getProducts().size()) {
                                     count = 1;
-                                    for (String list : getProducts()) {
+                                    for (String list : market.getProducts()) {
                                         if (count == countHelp) {
-                                            removeProduct(list);
+                                            market.removeProduct(list);
                                         }
                                         count++;
                                     }
@@ -193,27 +194,27 @@ public class Market implements Basket {
                                 System.out.println(errorString);
                             }
                             System.out.println("Товар удален. В корзине содержится следующий товар:");
-                            printBasket();
+                            market.printBasket();
                             break;
                         }
                         case 3: { // изменить кол-во
                             System.out.println("Выберите продукт у которого хотите изменить количество:");
-                            printBasket();
+                            market.printBasket();
 
                             Scanner delProd = new Scanner(System.in);
                             if (delProd.hasNextInt()) {
                                 countHelp = delProd.nextInt();
-                                if (countHelp > 0 && countHelp <= getProducts().size()) {
+                                if (countHelp > 0 && countHelp <= market.getProducts().size()) {
                                     count = 1;
-                                    for (String list : getProducts()) {
+                                    for (String list : market.getProducts()) {
                                         if (count == countHelp) {
-                                            System.out.printf("У данного товара количество: %d\n", getProductQuantity(list));
+                                            System.out.printf("У данного товара количество: %d\n", market.getProductQuantity(list));
                                             System.out.println("Введите новое количество товара:");
                                             Scanner newQuanScan = new Scanner(System.in);
                                             if (newQuanScan.hasNextInt()) {
                                                 int newNumber = newQuanScan.nextInt();
                                                 if (newNumber > 0) {
-                                                    updateProductQuantity(list, newNumber);
+                                                    market.updateProductQuantity(list, newNumber);
                                                 } else {
                                                     System.out.println(errorString);
                                                 }
@@ -230,11 +231,11 @@ public class Market implements Basket {
                                 System.out.println(errorString);
                             }
                             System.out.println("Изменено кол-во");
-                            printBasket();
+                            market.printBasket();
                             break;
                         }
                         case 4: { // очистить корзину
-                            clear();
+                            market.clear();
                             System.out.println(tc_RED + "Ваша корзина пуста!" + tc_RESET);
                             break;
                         }
@@ -256,12 +257,11 @@ public class Market implements Basket {
         }//for (;;)
     }//psvm
 
-    void printBasket() {
+    public void printBasket() {
         int count = 1;
-        for (String list : getProducts()) {
-            System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, getProductQuantity(list));
+        for (String list : market.getProducts()) {
+            System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, market.getProductQuantity(list));
             count++;
         }
     }
-
 }

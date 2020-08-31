@@ -2,15 +2,15 @@ package ru.Sobolev.lesson25.Task1;
 
 import java.util.List;
 
-interface Basket { //интерфейсы перечитай
+interface Basket {
 
     void addProduct(String product, int quantity);
 
-    void removeProduct(String product); //+
+    void removeProduct(String product);
 
-    void updateProductQuantity(String product, int quantity);//+
+    void updateProductQuantity(String product, int quantity);
 
-    void clear();//+
+    void clear();
 
     List<String> getProducts();
 
