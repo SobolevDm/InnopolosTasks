@@ -9,9 +9,16 @@ import static ru.Sobolev.lesson25.textColor.*;
 public class Market implements Basket {
 
     public static Market market = new Market();
-    static List<String> listProducts = new ArrayList<>();
-    static List<Integer> listQuantity = new ArrayList<>();
-    static List<String> prodList = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
+    List<String> prodList = new ArrayList<>();
+
+    static void printBasket() {
+        int count = 1;
+        for (Product str : market.products) {
+            System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, str.nameProduct, str.quantityProd);
+            count++;
+        }
+    }
 
     static int newQuantity(String product) {
         String errorUser = "Нужно ввести целое число от 1 до 100.";
@@ -37,23 +44,6 @@ public class Market implements Basket {
         return newQuan;
     }
 
-    static void printBasket() {
-        int count = 1;
-        for (String list : market.getProducts()) {
-            System.out.printf(tc_BLUE + "%d. %s %d\n" + tc_RESET, count, list, market.getProductQuantity(list));
-            count++;
-        }
-    }
-
-    static void menuAction() {
-        System.out.println("Выберите действие:");
-        System.out.println("1. Добавить продукты в корзину");
-        System.out.println("2. Удалить выбранный продукт из корзины");
-        System.out.println("3. Изменить кол-во продуктов в корзине");
-        System.out.println("4. Очистить корзину");
-        System.out.println("5. Выход из программы");
-    }
-
     public static void main(String[] args) {
         boolean exitPo = false;
         String helpProd, errorString = tc_RED + "Вы ввели неверные данные." + tc_RESET;
@@ -66,7 +56,7 @@ public class Market implements Basket {
                 int helpNum = scan.nextInt();
                 if (helpNum >= 1 && helpNum <= 5) {
                     switch (helpNum) {
-                        case 1: { //
+                        case 1: { // добавить товар
                             helpProd = market.newProduct();
                             market.addProduct(helpProd, newQuantity(helpProd));
                             System.out.println("Товар добавлен. В корзине находятся продукты:");
@@ -157,39 +147,60 @@ public class Market implements Basket {
         }//for (;;)
     }//psvm
 
+    static void menuAction() {
+        System.out.println("Выберите действие:");
+        System.out.println("1. Добавить продукты в корзину");
+        System.out.println("2. Удалить выбранный продукт из корзины");
+        System.out.println("3. Изменить кол-во продуктов в корзине");
+        System.out.println("4. Очистить корзину");
+        System.out.println("5. Выход из программы");
+    }
+
     @Override
     public void addProduct(String product, int quantity) {
-        Market.listProducts.add(product);
-        Market.listQuantity.add(quantity);
+        market.products.add(new Product(product, quantity));
     }
 
     @Override
     public void removeProduct(String product) {
-        Market.listQuantity.remove(Market.listProducts.indexOf(product));
-        Market.listProducts.remove(product);
+        market.products.remove(getProducts().indexOf(product));
     }
 
     @Override
     public void updateProductQuantity(String product, int quantity) {
-        Market.listQuantity.set(Market.listProducts.indexOf(product), quantity);
+        for (Product list : products) {
+            if (list.nameProduct == product) {
+                list.quantityProd = quantity;
+            }
+        }
     }
 
     @Override
     public void clear() {
-        Market.listQuantity.clear();
-        Market.listProducts.clear();
+        market.products.clear();
     }
 
     @Override
     public List<String> getProducts() {
-        Market.prodList.clear();
-        Market.prodList.addAll(Market.listProducts);
-        return Market.prodList;
+        prodList.clear();
+        for (Product list : products) {
+            prodList.add(list.nameProduct);
+        }
+        return prodList;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
     public int getProductQuantity(String product) {
-        int quan = Market.listQuantity.get(Market.listProducts.indexOf(product));
+        int quan = 0;
+        for (Product list : products) {
+            if (list.nameProduct == product) {
+                quan = list.quantityProd;
+            }
+        }
         return quan;
     }
 
