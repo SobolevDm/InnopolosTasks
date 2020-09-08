@@ -1,96 +1,59 @@
 package ru.Sobolev.lesson22;
 
 import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class PersonSuperComparator implements Comparator<Person> {
-    String sortAge = "Сортировка по возрасту:";
-    String sortName = "Сортировка по имени";
-    String sortNameAge = "Сортировка по имени и возрасту";
-
     public static void main(String[] args) {
-        PersonSuperComparator psc = new PersonSuperComparator();
-        Person person1 = new Person("Анна", 15);
-        Person person2 = new Person("Максим", 12);
-        psc.comparation(person1, person2);
-    }
-
-    void comparation(Person obj1, Person obj2) {
-        String name1 = obj1.getName();
-        String name2 = obj2.getName();
-
-        int age1 = obj1.getAge();
-        int age2 = obj2.getAge();
-        int comparisonAge;
-
-        if (age1 > age2) {
-            comparisonAge = 1;
-        } else if (age1 < age2) {
-            comparisonAge = -1;
-        } else {
-            comparisonAge = 0;
+        SortedSet<Person> persons = new TreeSet();
+        persons.add(new Person("Анна", 10));
+        persons.add(new Person("Фёдор", 12));
+        persons.add(new Person("Данил", 15));
+        System.out.println("Исходные данные:");
+        for (Person person : persons) {
+            System.out.println(person.toString());
         }
 
-        if (name1.compareTo(name2) < 0) {
-            System.out.println(sortName);
-            System.out.println(obj1);
-            System.out.println(obj2);
-        } else {
-            if (name1.compareTo(name2) > 0) {
-                System.out.println(sortName);
-                System.out.println(obj2);
-                System.out.println(obj1);
-            } else {
-                if (age1 > age2) {
-                    System.out.println(sortNameAge);
-                    System.out.println(obj1);
-                    System.out.println(obj2);
-                } else if (age1 < age2) {
-                    System.out.println(sortNameAge);
-                    System.out.println(obj2);
-                    System.out.println(obj1);
-                } else {
-                    System.out.println("Люди идентичны по имени и возрасту:");
-                    System.out.println(obj1);
-                    System.out.println(obj2);
-                }
-            }
-        }
-
-        System.out.println("");
-        switch (comparisonAge) {
-            case (-1): {
-                System.out.println(sortAge);
-                System.out.println(obj1);
-                System.out.println(obj2);
-                break;
-            }
-            case (0): {
-                if (name1.compareTo(name2) < 0) {
-                    System.out.println(sortNameAge);
-                    System.out.println(obj1);
-                    System.out.println(obj2);
-                } else if (name1.compareTo(name2) > 0) {
-                    System.out.println(sortNameAge);
-                    System.out.println(obj2);
-                    System.out.println(obj1);
-                } else {
-                    System.out.println("Люди идентичны по имени и возрасту:");
-                    System.out.println(obj1);
-                    System.out.println(obj2);
-                }
-                break;
-            }
-            case (1): {
-                System.out.println(sortAge);
-                System.out.println(obj2);
-                System.out.println(obj1);
-                break;
-            }
+        System.out.printf("%nРеализуем интерфейс compare по ТЗ:%n");
+        persons = new TreeSet(new PersonSuperComparator());
+        persons.add(new Person("Анна", 10));
+        persons.add(new Person("Фёдор", 12));
+        persons.add(new Person("Данил", 15));
+        for (Person person : persons) {
+            System.out.println(person.toString());
         }
     }
 
     @Override
     public int compare(Person o1, Person o2) {
-        return 0;
+        String name1 = o1.getName();
+        String name2 = o2.getName();
+        int age1 = o1.getAge();
+        int age2 = o2.getAge();
+        int intName = 0, i;
+
+        if (name1.compareTo(name2) < 0) {
+            intName = -1;
+        }
+        if (name1.compareTo(name2) > 0) {
+            intName = 1;
+        }
+        if (name1.compareTo(name2) == 0) {
+            intName = 0;
+        }
+
+        if (age1 > age2) {
+            i = intName;
+        } else if (age1 < age2) {
+            if (intName == -1) {
+                i = -1;
+            } else {
+                i = 1;
+            }
+        } else {
+            i = 0;
+        }
+        return i;
     }
 }
